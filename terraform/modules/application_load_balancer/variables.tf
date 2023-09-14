@@ -1,10 +1,10 @@
 variable "alb_security_groups_ids" {
-  type        = [string]
+  type        = list(string)
   description = "value"
 }
 
 variable "alb_subnet_ids" {
-  type        = [string]
+  type        = list(string)
   description = "value"
 }
 
@@ -23,11 +23,6 @@ variable "vpc_id" {
   description = "value"
 }
 
-variable "target_type" {
-  type        = string
-  description = "value"
-}
-
 variable "health_check_path" {
   type        = string
   description = "value"
@@ -38,32 +33,17 @@ variable "health_check_port" {
   description = "value"
 }
 
-variable "health_check_protocol" {
+variable "load_balancing_algorithm_type" {
   type        = string
   description = "value"
 }
 
-variable "health_check_interval" {
-  type        = number
-  description = "value"
-}
-
-variable "health_check_timeout" {
-  type        = number
-  description = "value"
-}
-
-variable "health_check_healthy_threshold" {
-  type        = number
-  description = "value"
-}
-
-variable "health_check_unhealthy_threshold" {
-  type        = number
-  description = "value"
-}
-
-variable "listener_type" {
+variable "listener_protocol" {
   type        = string
+  description = "value"
+}
+
+variable "listener_port" {
+  type        = number
   description = "value"
 }

@@ -1,79 +1,64 @@
 variable "create_ingress_cidr" {
   type        = bool
   description = "value"
+  default     = false
 }
 
 variable "ingress_cidr_block" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
 variable "ingress_cidr_to_port" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
 variable "ingress_cidr_from_port" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
-variable "create_ingress_sg" {
-  type        = [string]
+variable "ingress_cidr_protocol" {
+  type        = list(string)
   description = "value"
-}
-
-variable "ingress_sg_ids" {
-  type        = [string]
-  description = "value"
-}
-
-variable "ingress_sg_to_port" {
-  type        = [string]
-  description = "value"
-}
-
-variable "ingress_sg_from_port" {
-  type        = [string]
-  description = "value"
+  default     = []
 }
 
 variable "create_egress_cidr" {
   type        = bool
   description = "value"
+  default     = false
 }
 
 variable "egress_cidr_block" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
 variable "egress_cidr_to_port" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
 variable "egress_cidr_from_port" {
-  type        = [string]
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
-variable "create_egress_sg" {
-  type        = [string]
+variable "egress_cidr_protocol" {
+  type        = list(string)
   description = "value"
+  default     = []
 }
 
-variable "egress_sg_ids" {
-  type        = [string]
-  description = "value"
-}
-
-variable "egress_sg_to_port" {
-  type        = [string]
-  description = "value"
-}
-
-variable "egress_sg_from_port" {
-  type        = [string]
+variable "vpc_id" {
+  type        = string
   description = "value"
 }
