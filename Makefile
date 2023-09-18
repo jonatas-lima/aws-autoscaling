@@ -3,8 +3,11 @@ SHELL := /bin/bash
 init:
 	cd terraform && terraform init
 
-run:
+apply:
 	. .profile && cd terraform && terraform apply -auto-approve
+
+validate:
+	. .profile && cd terraform && terraform validate
 
 destroy:
 	. .profile && cd terraform && terraform destroy -auto-approve

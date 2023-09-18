@@ -43,8 +43,8 @@ resource "aws_cloudwatch_metric_alarm" "upscale" {
   comparison_operator = var.upscale_comparison_operator
   metric_name         = var.upscale_target_metric
   threshold           = var.upscale_metric_threshold
-  evaluation_periods  = var.upscale_evaluation_periods
-  period              = var.upscale_period
+  evaluation_periods  = var.upscale_evaluation_cycles
+  period              = var.upscale_evaluation_period
   statistic           = var.upscale_statistic
 
   dimensions = {
@@ -59,8 +59,8 @@ resource "aws_cloudwatch_metric_alarm" "downscale" {
   comparison_operator = var.downscale_comparison_operator
   metric_name         = var.downscale_target_metric
   threshold           = var.downscale_metric_threshold
-  evaluation_periods  = var.downscale_evaluation_periods
-  period              = var.downscale_period
+  evaluation_periods  = var.downscale_evaluation_cycles
+  period              = var.downscale_evaluation_period
   statistic           = var.downscale_statistic
 
   dimensions = {
