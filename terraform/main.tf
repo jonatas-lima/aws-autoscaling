@@ -95,4 +95,18 @@ module "asg" {
   launch_template_version = module.launch_template.launch_template_version
 
   alb_target_group = module.alb.target_group_arn
+
+  upscale_target_metric       = "CPUUtilization"
+  upscale_evaluation_periods  = 2
+  upscale_period              = 30
+  upscale_metric_threshold    = 30
+  upscale_statistic           = "Average"
+  upscale_comparison_operator = "GreaterThanThreshold"
+
+  downscale_target_metric       = "CPUUtilization"
+  downscale_evaluation_periods  = 2
+  downscale_period              = 60
+  downscale_metric_threshold    = 10
+  downscale_statistic           = "Average"
+  downscale_comparison_operator = "LessThanOrEqualToThreshold"
 }
