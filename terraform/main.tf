@@ -5,27 +5,19 @@ terraform {
       version = "~> 5.0"
     }
   }
+  required_version = ">= 1.5.7"
 }
 
 provider "aws" {}
-
-data "aws_ami" "ubuntu" {
-  owners      = ["amazon"]
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
-  }
-}
 
 data "aws_availability_zones" "available" {
   state = "available"
 }
 
 module "vpc" {
-  name   = "main-vpc"
-  source = "terraform-aws-modules/vpc/aws"
+  name    = "main-vpc"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.1.2"
 
   azs            = data.aws_availability_zones.available.names
   cidr           = "192.168.0.0/16"
@@ -105,6 +97,7 @@ module "asg" {
   upscale_metric_threshold    = var.upscale_metric_threshold
   upscale_statistic           = var.upscale_statistic
   upscale_comparison_operator = var.upscale_comparison_operator
+  upscale_cooldown            = var.upscale_cooldown
 
   downscale_target_metric       = var.downscale_target_metric
   downscale_evaluation_cycles   = var.downscale_evaluation_cycles
@@ -112,4 +105,5 @@ module "asg" {
   downscale_metric_threshold    = var.downscale_metric_threshold
   downscale_statistic           = var.downscale_statistic
   downscale_comparison_operator = var.downscale_comparison_operator
+  downscale_cooldown            = var.downscale_cooldown
 }

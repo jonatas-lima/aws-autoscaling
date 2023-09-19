@@ -14,3 +14,6 @@ destroy:
 
 plan:
 	. .profile && cd terraform && terraform plan
+
+lint:
+	. .profile && cd terraform && tflint
