@@ -19,3 +19,51 @@ resource "aws_autoscaling_attachment" "asg" {
   autoscaling_group_name = aws_autoscaling_group.asg.name
   lb_target_group_arn    = var.alb_target_group
 }
+
+resource "aws_autoscaling_policy" "downscale" {
+  name                   = "downscale"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = var.downscale_cooldown
+}
+
+resource "aws_autoscaling_policy" "upscale" {
+  name                   = "upscale"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  scaling_adjustment     = 1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = var.upscale_cooldown
+}
+
+resource "aws_cloudwatch_metric_alarm" "upscale" {
+  alarm_name          = "upscale"
+  alarm_actions       = [aws_autoscaling_policy.upscale.arn]
+  namespace           = "AWS/EC2"
+  comparison_operator = var.upscale_comparison_operator
+  metric_name         = var.upscale_target_metric
+  threshold           = var.upscale_metric_threshold
+  evaluation_periods  = var.upscale_evaluation_cycles
+  period              = var.upscale_evaluation_period
+  statistic           = var.upscale_statistic
+
+  dimensions = {
+    AutoscalingGroupName = aws_autoscaling_group.asg.name
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "downscale" {
+  alarm_name          = "downscale"
+  alarm_actions       = [aws_autoscaling_policy.downscale.arn]
+  namespace           = "AWS/EC2"
+  comparison_operator = var.downscale_comparison_operator
+  metric_name         = var.downscale_target_metric
+  threshold           = var.downscale_metric_threshold
+  evaluation_periods  = var.downscale_evaluation_cycles
+  period              = var.downscale_evaluation_period
+  statistic           = var.downscale_statistic
+
+  dimensions = {
+    AutoscalingGroupName = aws_autoscaling_group.asg.name
+  }
+}

@@ -1,64 +1,26 @@
-variable "create_ingress_cidr" {
-  type        = bool
-  description = "value"
-  default     = false
-}
-
-variable "ingress_cidr_block" {
-  type        = list(string)
-  description = "value"
+variable "ingress_config" {
+  type = list(object({
+    from_port   = number
+    to_port     = number
+    cidr_blocks = list(string)
+    protocol    = string
+  }))
+  description = "Lista de regras de inbound."
   default     = []
 }
 
-variable "ingress_cidr_to_port" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "ingress_cidr_from_port" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "ingress_cidr_protocol" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "create_egress_cidr" {
-  type        = bool
-  description = "value"
-  default     = false
-}
-
-variable "egress_cidr_block" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "egress_cidr_to_port" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "egress_cidr_from_port" {
-  type        = list(string)
-  description = "value"
-  default     = []
-}
-
-variable "egress_cidr_protocol" {
-  type        = list(string)
-  description = "value"
+variable "egress_config" {
+  type = list(object({
+    from_port   = number
+    to_port     = number
+    cidr_blocks = list(string)
+    protocol    = string
+  }))
+  description = "Lista de regras de outbound."
   default     = []
 }
 
 variable "vpc_id" {
   type        = string
-  description = "value"
+  description = "ID da VPC a ser associada ao Security Group."
 }

@@ -21,8 +21,8 @@ resource "aws_alb_target_group" "alb_tg" {
 
 resource "aws_alb_listener" "alb_listener" {
   load_balancer_arn = aws_lb.alb.arn
-  port              = var.listener_port
-  protocol          = var.listener_protocol
+  port              = var.alb_target_group_port
+  protocol          = var.alb_target_group_protocol
 
   default_action {
     target_group_arn = aws_alb_target_group.alb_tg.arn
