@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class TestController {
 
-    @GetMapping("/test")
+    @GetMapping("/")
     public ResponseEntity<Void> testEndpoint() {
         System.out.println("START :: /test ENDPOINT");
         try {
