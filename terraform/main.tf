@@ -46,6 +46,12 @@ module "alb_security_group" {
       to_port     = 80
       cidr_blocks = ["0.0.0.0/0"]
       protocol    = "tcp"
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      cidr_blocks = ["0.0.0.0/0"]
+      protocol    = "tcp"
     }
   ]
 
@@ -91,19 +97,6 @@ module "asg" {
 
   alb_target_group = module.alb.target_group_arn
 
-  upscale_target_metric       = var.upscale_target_metric
-  upscale_evaluation_cycles   = var.upscale_evaluation_cycles
-  upscale_evaluation_period   = var.upscale_evaluation_period
-  upscale_metric_threshold    = var.upscale_metric_threshold
-  upscale_statistic           = var.upscale_statistic
-  upscale_comparison_operator = var.upscale_comparison_operator
-  upscale_cooldown            = var.upscale_cooldown
-
-  downscale_target_metric       = var.downscale_target_metric
-  downscale_evaluation_cycles   = var.downscale_evaluation_cycles
-  downscale_evaluation_period   = var.downscale_evaluation_period
-  downscale_metric_threshold    = var.downscale_metric_threshold
-  downscale_statistic           = var.downscale_statistic
-  downscale_comparison_operator = var.downscale_comparison_operator
-  downscale_cooldown            = var.downscale_cooldown
+  upscale_target_metric    = var.upscale_target_metric
+  upscale_metric_threshold = var.upscale_metric_threshold
 }
