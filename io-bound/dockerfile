@@ -1,0 +1,10 @@
+FROM golang:1.17.2-alpine
+
+WORKDIR /go/src/app
+COPY application.go .
+COPY users.json .
+
+RUN go mod init application && go mod tidy
+RUN go build -o application
+
+CMD ["./application"]
