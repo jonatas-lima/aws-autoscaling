@@ -8,14 +8,16 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 )
 
 func main() {
-	http.HandleFunc("/users", getUsers)
+	http.HandleFunc("/io", StressIO)
+	http.HandleFunc("/cpu", StressCPU)
 	fmt.Println("api na porta: 8000")
 
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 type User struct {
@@ -23,7 +25,29 @@ type User struct {
 	Name string `json:"nome"`
 }
 
-func getUsers(w http.ResponseWriter, request *http.Request) {
+func StressCPU(w http.ResponseWriter, request *http.Request) {
+	numThreads, err := strconv.Atoi(request.URL.Query().Get("n"))
+	if err != nil {
+		panic(err)
+	}
+
+	var wg sync.WaitGroup
+
+	for i := 0; i < numThreads; i++ {
+		wg.Add(1)
+		go func() {
+			r := 1
+			for j := 1; j < 50; j++ {
+				r = r * j
+			}
+			log.Println(r)
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
+
+func StressIO(w http.ResponseWriter, request *http.Request) {
 	if request.Method != "GET" {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
