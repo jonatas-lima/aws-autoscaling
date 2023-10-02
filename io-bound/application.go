@@ -15,7 +15,7 @@ import (
 func main() {
 	http.HandleFunc("/io", StressIO)
 	http.HandleFunc("/cpu", StressCPU)
-	fmt.Println("api na porta: 8000")
+	fmt.Println("api na porta: 8080")
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -60,7 +60,7 @@ func StressIO(w http.ResponseWriter, request *http.Request) {
 	if paramValue != "" {
 		n, err = strconv.Atoi(paramValue)
 		if err != nil {
-			http.Error(w, "Invalid parameter value", http.StatusBadRequest)
+			http.Error(w, "Valor de parâmetro inválido", http.StatusBadRequest)
 			return
 		}
 	}
