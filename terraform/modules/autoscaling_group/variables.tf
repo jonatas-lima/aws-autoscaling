@@ -24,7 +24,7 @@ variable "asg_desired_capacity" {
 variable "health_check_grace_period" {
   type        = number
   description = "Intervalo de tempo (em milissegundos) entre os healthchecks."
-  default     = 300
+  default     = 120
 }
 
 variable "launch_template_id" {
@@ -42,12 +42,12 @@ variable "alb_target_group" {
   description = "ARN do Target Group do Load Balancer associado."
 }
 
-variable "upscale_target_metric" {
+variable "target_metric" {
   type        = string
-  description = "Métrica alvo a ser considerada no upscale. Disponível em https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html"
+  description = "Métrica alvo a ser considerada. Disponível em https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy#predefined_scaling_metric_specification"
 }
 
-variable "upscale_metric_threshold" {
+variable "target_metric_value" {
   type        = number
-  description = "Limite da métrica de upscale."
+  description = "Valor alvo da métrica."
 }

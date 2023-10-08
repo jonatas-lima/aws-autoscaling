@@ -26,9 +26,9 @@ resource "aws_autoscaling_policy" "upscale" {
   policy_type            = "TargetTrackingScaling"
 
   target_tracking_configuration {
-    target_value = var.upscale_metric_threshold
+    target_value = var.target_metric_value
     predefined_metric_specification {
-      predefined_metric_type = var.upscale_target_metric
+      predefined_metric_type = var.target_metric
     }
   }
 }

@@ -85,6 +85,6 @@ module "asg" {
 
   alb_target_group = module.alb.target_group_arn
 
-  upscale_target_metric    = var.upscale_target_metric
-  upscale_metric_threshold = var.upscale_metric_threshold
+  target_metric       = var.target_metric
+  target_metric_value = var.target_metric_value
 }

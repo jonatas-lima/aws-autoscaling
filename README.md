@@ -19,6 +19,12 @@ sudo apt update && sudo apt install -y terraform
 sudo apt install -y make
 ```
 
+4. Inicializar os módulos:
+
+```sh
+make init
+```
+
 ## Visão Arquitetural
 
 TODO
@@ -37,7 +43,7 @@ cp .profile.sample .profile
 
 ### Aplicação
 
-* Uma aplicação CPU-Bound será provisionada na infraestrutura, em que, com mais de 50% de uso médio da CPU das instâncias do _Autoscaling Group_, o autoscaler irá aumentar o número de instâncias em 1.
+* Uma aplicação CPU-Bound será provisionada na infraestrutura, em quea AWS temtará manter o uso médio da CPU das instâncias do _Autoscaling Group_ em 20%, o autoscaler irá aumentar o número de instâncias em 1.
 
 ```sh
 make apply
@@ -50,10 +56,16 @@ make apply
 Para estressar a infra da aplicação, pegue o endereço do Load Balancer que foi mostrado no `make apply` e faça:
 
 ```sh
-for i in `seq 1000`; do curl <load balancer dns>?n=10000; done
+./stress.sh <load balancer address> <goroutines number>
 ```
 
-> O paramêtro `n` vai indicar quantas goroutines serão criadas, sendo o estresse de CPU diretamente proporcional a esse número.
+> O segundo paramêtro vai indicar quantas goroutines serão criadas, sendo o estresse de CPU diretamente proporcional a esse número.
+
+* Exemplo:
+
+```sh
+./stress.sh alb-1484426253.us-east-1.elb.amazonaws.com 10000
+```
 
 ## IMPORTANTE
 
