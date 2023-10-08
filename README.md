@@ -43,7 +43,7 @@ cp .profile.sample .profile
 
 ### Aplicação
 
-* Uma aplicação CPU-Bound será provisionada na infraestrutura, em quea AWS temtará manter o uso médio da CPU das instâncias do _Autoscaling Group_ em 20%, o autoscaler irá aumentar o número de instâncias em 1.
+* Uma aplicação CPU-Bound será provisionada na infraestrutura, em quea AWS temtará manter o uso médio da CPU das instâncias do _Autoscaling Group_ em 20%, o autoscaler irá aumentar ou diminuir, dinamicamente, o número de instâncias.
 
 ```sh
 make apply
