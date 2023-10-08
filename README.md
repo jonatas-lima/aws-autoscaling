@@ -19,11 +19,11 @@ sudo apt update && sudo apt install -y terraform
 sudo apt install -y make
 ```
 
-## Diagrama Arquitetural
+## Visão Arquitetural
 
 TODO
 
-### Componentes provisionados
+## Componentes provisionados
 
 TODO
 
@@ -35,16 +35,42 @@ TODO
 cp .profile.sample .profile
 ```
 
-### Aplicação CPU-Bound
+### Aplicação
 
-* Uma aplicação CPU-Bound será provisionada na infraestrutura, em que, com mais de 50% de uso da CPU, o autoscaler irá aumentar o número de instância em 1.
+* Uma aplicação CPU-Bound será provisionada na infraestrutura, em que, com mais de 50% de uso médio da CPU das instâncias do _Autoscaling Group_, o autoscaler irá aumentar o número de instâncias em 1.
 
 ```sh
 make apply
 ```
 
-...Colocar mais detalhes
+### Estressando a infraestrutura
 
-### Aplicação Memory-Bound
+> Caso não tenha o endereço do Load Balancer em mãos, executar `terraform output`
 
-TODO
+Para estressar a infra da aplicação, pegue o endereço do Load Balancer que foi mostrado no `make apply` e faça:
+
+```sh
+for i in `seq 1000`; do curl <load balancer dns>?n=10000; done
+```
+
+> O paramêtro `n` vai indicar quantas goroutines serão criadas, sendo o estresse de CPU diretamente proporcional a esse número.
+
+## IMPORTANTE
+
+### Não apague os arquivos *.tfstate
+
+Esses arquivos são responsáveis por manter o estado da infraestrutura. Se eles forem apagados, o terraform não vai conseguir aplicar de forma correta as mudanças, tendo que apagar "na mão" tudo que foi criado previamente.
+
+### Destrua a infraestrutura
+
+Ao final dos experimentos executar:
+
+```sh
+make destroy
+```
+
+O comando vai destruir tudo que foi feito, evitando que a AWS cobre algum valor se você esquecer rodando.
+
+### Cobranças adicionais
+
+Se a infra ficar rodando por muito tempo, vai ser cobrado um valor. A AWS cobra por uso do recurso, então como estamos usando uma `t2.micro`, o valor vai ser simbólico (acredito que no máximo uns R$5,00 ~ R$10,00).
