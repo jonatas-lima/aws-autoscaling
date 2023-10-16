@@ -29,11 +29,7 @@ make init
 
 ## Visão Arquitetural
 
-TODO
-
-## Componentes provisionados
-
-TODO
+![Visão Arquitetural](./assets/architecture.png)
 
 ## Executando
 
