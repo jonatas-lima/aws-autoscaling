@@ -1,5 +1,7 @@
 # AWS Horizontal Autoscaling
 
+Projeto realizado para a disciplina de Arquitetura de Software @ UFCG. Nesse repositório está o código Terraform de uma infraestrutura que escala horizontalmente na AWS, as instruções de como executar, e uma visão de parte da arquitetura utilizada.
+
 ## Antes de começar
 
 1. Necessário ter uma conta válida na AWS, com [chaves de acesso](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
